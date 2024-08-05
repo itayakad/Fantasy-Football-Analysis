@@ -120,6 +120,95 @@ WHERE offense_pct IS NULL;
 DELETE FROM oy_flex
 WHERE offense_pct IS NULL;
 
+-- Joining team data --
+SELECT *
+from team_stats;
+
+CREATE TABLE team_data
+LIKE team_stats;
+
+SELECT *
+FROM team_data;
+
+INSERT team_data
+SELECT *
+FROM team_stats;
+
+UPDATE team_data
+SET team = CASE
+    WHEN team = 'Arizona Cardinals' THEN 'ARI'
+    WHEN team = 'Atlanta Falcons' THEN 'ATL'
+    WHEN team = 'Baltimore Ravens' THEN 'BAL'
+    WHEN team = 'Buffalo Bills' THEN 'BUF'
+    WHEN team = 'Carolina Panthers' THEN 'CAR'
+    WHEN team = 'Chicago Bears' THEN 'CHI'
+    WHEN team = 'Cincinnati Bengals' THEN 'CIN'
+    WHEN team = 'Cleveland Browns' THEN 'CLE'
+    WHEN team = 'Dallas Cowboys' THEN 'DAL'
+    WHEN team = 'Denver Broncos' THEN 'DEN'
+    WHEN team = 'Detroit Lions' THEN 'DET'
+    WHEN team = 'Green Bay Packers' THEN 'GB'
+    WHEN team = 'Houston Texans' THEN 'HOU'
+    WHEN team = 'Indianapolis Colts' THEN 'IND'
+    WHEN team = 'Jacksonville Jaguars' THEN 'JAX'
+    WHEN team = 'Kansas City Chiefs' THEN 'KC'
+    WHEN team = 'Las Vegas Raiders' THEN 'LV'
+    WHEN team = 'Los Angeles Chargers' THEN 'LAC'
+    WHEN team = 'Los Angeles Rams' THEN 'LAR'
+    WHEN team = 'Miami Dolphins' THEN 'MIA'
+    WHEN team = 'Minnesota Vikings' THEN 'MIN'
+    WHEN team = 'New England Patriots' THEN 'NE'
+    WHEN team = 'New Orleans Saints' THEN 'NO'
+    WHEN team = 'New York Giants' THEN 'NYG'
+    WHEN team = 'New York Jets' THEN 'NYJ'
+    WHEN team = 'Philadelphia Eagles' THEN 'PHI'
+    WHEN team = 'Pittsburgh Steelers' THEN 'PIT'
+    WHEN team = 'San Francisco 49ers' THEN 'SF'
+    WHEN team = 'Seattle Seahawks' THEN 'SEA'
+    WHEN team = 'Tampa Bay Buccaneers' THEN 'TB'
+    WHEN team = 'Tennessee Titans' THEN 'TEN'
+    WHEN team = 'Washington Commanders' THEN 'WAS'
+    ELSE team
+END;
+
+UPDATE team_data
+SET team = CASE
+	WHEN team = 'San Diego Chargers' THEN 'LAC'
+	WHEN team = 'Oakland Raiders' THEN 'LV'
+	WHEN team = 'Washington Redskins' THEN 'WAS'
+	WHEN team = 'St. Louis Rams' THEN 'LAR'
+	WHEN team = 'Washington Football Team' THEN 'WAS'
+	ELSE team
+END
+
+SELECT team
+FROM team_data
+ORDER BY LENGTH(team) DESC;
+
+CREATE TABLE flex_team
+LIKE oy_flex;
+
+INSERT flex_team
+SELECT *
+FROM oy_flex;
+
+SELECT *
+FROM flex_team;
+
+SELECT *
+FROM flex_team AS f
+JOIN team_data AS t
+ON f.team = t.team AND f.season = t.year;
+
+SELECT *
+FROM flexplayer_team;
+-- EDA --
+SELECT *
+FROM oy_flex
+WHERE position = 'TE';
+
+
+
 
 
 
