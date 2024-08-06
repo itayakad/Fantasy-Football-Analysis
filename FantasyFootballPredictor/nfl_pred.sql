@@ -202,6 +202,21 @@ ON f.team = t.team AND f.season = t.year;
 
 SELECT *
 FROM flexplayer_team;
+
+CREATE TABLE qb_team
+LIKE oy_qb;
+
+INSERT qb_team
+SELECT *
+FROM oy_qb;
+
+SELECT *
+FROM qb_team;
+
+SELECT *
+FROM qb_team AS q
+JOIN team_data AS t
+ON q.team = t.team AND q.season = t.year;
 -- EDA --
 SELECT *
 FROM oy_flex
