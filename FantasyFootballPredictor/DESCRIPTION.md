@@ -1,7 +1,5 @@
 # Fantasy-Football-Prediction
-Utilizes NFL team and player stats to create a model that predicts who the top PPR players will be. Data was cleaned and joined in SQL, model was built in python, and graphs were created in Tableau.
-
-Tableau Link: https://public.tableau.com/views/FootballMetrics_17230581471130/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+Utilizes NFL team and player stats to create a model that predicts who the top PPR players will be. Data was cleaned and joined in SQL, and model was built in python.
 
 Sources from Kaggle:
 
