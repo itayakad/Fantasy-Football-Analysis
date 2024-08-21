@@ -1,7 +1,7 @@
 import pandas as pd
 
-breakout_df = pd.read_csv('/Users/itayakad/Desktop/Github Projects/FantasyFootballAnalysis/ADPAnalysis/Data/TE Results/te_pre_breakout.csv')
-adp_df = pd.read_csv('/Users/itayakad/Desktop/Github Projects/FantasyFootballAnalysis/ADPAnalysis/Data/TE Results/te_adp.csv')
+breakout_df = pd.read_csv('.../BreakoutCandidates/Data/{POSITION} Results/{POSITION}_pre_breakout.csv')
+adp_df = pd.read_csv('.../BreakoutCandidates/Data/{POSITION} Results/{POSITION}_adp.csv')
 
 # Filter uselss columns
 breakout_df = breakout_df.drop(columns=['Player', 'year', 'breakout_score'])
@@ -22,4 +22,4 @@ results_df = pd.DataFrame({
 }).sort_values(by='percentage_diff', ascending=False)
 
 print(results_df)
-results_df.to_csv('/Users/itayakad/Desktop/Github Projects/FantasyFootballAnalysis/ADPAnalysis/Data/TE Results/te_diff.csv', index=True)
+results_df.to_csv('.../BreakoutCandidates/Data/{POSITION} Results/{POSITION}_diff.csv', index=True)
