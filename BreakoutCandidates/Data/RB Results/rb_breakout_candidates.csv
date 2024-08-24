@@ -1,4 +1,7 @@
-Player,year,rush_YBC/Att,rz_Y/R,rz_Y/A,rec_ADOT,rush_Att/Br,rec_Drop%,rec_Int
-Alvin Kamara,2023,2.0,5.9,3.2,0.1,26.0,2,0
-Samaje Perine,2023,2.0,6.3,4.4,-0.1,26.0,2,0
-Devin Singletary,2023,2.0,5.0,2.8,0.3,22.0,5,0
+Player,year,rush_YBC/Att,rz_Y/R,rz_Y/A,rec_ADOT,rec_Drop%,rec_Int
+Alvin Kamara,2023,2.0,5.9,3.2,0.1,2,0
+Samaje Perine,2023,2.0,6.3,4.4,-0.1,2,0
+Devin Singletary,2023,2.0,5.0,2.8,0.3,5,0
+Justice Hill,2023,3.0,11.0,2.9,0.6,5,0
+De'Von Achane,2023,4.0,6.6,4.3,0.7,0,0
+JK Dobbins,2023,2.0,5.0,4.0,1.0,0,0

@@ -1,5 +1,5 @@
--- Setting up the metrics --
-# Adv Receiving Data
+
+-- Adv Receiving Data --
 SELECT *
 FROM adv_rec2018
 
@@ -65,7 +65,7 @@ CHANGE COLUMN `YBC` `rec_YBC` int,
 CHANGE COLUMN `YBC/R` `rec_YBC/R` double,
 CHANGE COLUMN `Yds` `rec_Yds` int;
 
-# Adv Rushing Data
+-- Adv Rushing Data --
 SELECT *
 FROM adv_rush2018
 
@@ -125,7 +125,71 @@ CHANGE COLUMN `YBC` `rush_YBC` int,
 CHANGE COLUMN `YBC/Att` `rush_YBC/Att` double,
 CHANGE COLUMN `Yds` `rush_Yds` int;
 
-# Redzone RB Data
+-- Adv Passing Data --
+SELECT *
+FROM adv_pass2018
+
+ALTER TABLE adv_pass2018 ADD COLUMN year INT AFTER Tm;
+ALTER TABLE adv_pass2019 ADD COLUMN year INT AFTER Tm;
+ALTER TABLE adv_pass2020 ADD COLUMN year INT AFTER Tm;
+ALTER TABLE adv_pass2021 ADD COLUMN year INT AFTER Tm;
+ALTER TABLE adv_pass2022 ADD COLUMN year INT AFTER Tm;
+ALTER TABLE adv_pass2023 ADD COLUMN year INT AFTER Tm;
+
+UPDATE adv_pass2018 SET year = 2018;
+UPDATE adv_pass2019 SET year = 2019;
+UPDATE adv_pass2020 SET year = 2020;
+UPDATE adv_pass2021 SET year = 2021;
+UPDATE adv_pass2022 SET year = 2022;
+UPDATE adv_pass2023 SET year = 2023;
+
+CREATE TABLE adv_pass_all
+LIKE adv_pass2018;
+
+INSERT INTO adv_pass_all SELECT * FROM adv_pass2018;
+INSERT INTO adv_pass_all SELECT * FROM adv_pass2019;
+INSERT INTO adv_pass_all SELECT * FROM adv_pass2020;
+INSERT INTO adv_pass_all SELECT * FROM adv_pass2021;
+INSERT INTO adv_pass_all SELECT * FROM adv_pass2022;
+INSERT INTO adv_pass_all SELECT * FROM adv_pass2023;
+
+UPDATE adv_pass_all
+SET Player = TRIM(Player);
+
+SELECT *
+FROM adv_pass_all;
+
+ALTER TABLE adv_pass_all
+DROP COLUMN Rk;
+
+UPDATE adv_pass_all
+SET Player = REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Player, '*', ''), '+', ''), ' Sr.', ''), ' Jr.', ''), ' II', ''), ' III', ''), '.', '');
+
+SELECT CONCAT(' CHANGE COLUMN `', COLUMN_NAME, '` `pass_', COLUMN_NAME, '` ', COLUMN_TYPE, ';')
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'adv_pass_all';
+
+ALTER TABLE adv_pass_all
+CHANGE COLUMN `Age` `pass_Age` int,
+CHANGE COLUMN `Att` `pass_Att` int,
+CHANGE COLUMN `CAY` `pass_CAY` int,
+CHANGE COLUMN `CAY/Cmp` `pass_CAY/Cmp` double,
+CHANGE COLUMN `CAY/PA` `pass_CAY/PA` double,
+CHANGE COLUMN `Cmp` `pass_Cmp` int,
+CHANGE COLUMN `G` `pass_G` int,
+CHANGE COLUMN `GS` `pass_GS` int,
+CHANGE COLUMN `IAY` `pass_IAY` int,
+CHANGE COLUMN `IAY/PA` `pass_IAY/PA` double,
+CHANGE COLUMN `Pos` `pass_Pos` varchar(50),
+CHANGE COLUMN `Tm` `pass_Tm` varchar(50),
+CHANGE COLUMN `YAC` `pass_YAC` int,
+CHANGE COLUMN `YAC/Cmp` `pass_YAC/Cmp` double,
+CHANGE COLUMN `Yds` `pass_Yds` int;
+
+SELECT *
+FROM adv_pass_all;
+
+-- Redzone RB Data --
 SELECT *
 FROM rz_rb2018;
 
@@ -202,7 +266,7 @@ SET rz_TD_total = rz_TD_rush + rz_TD_rec;
 UPDATE rz_rb_all
 SET rz_YDS_total = rz_YDS_rush + rz_YDS_rec;
 
-# Redzone TE Data
+-- Redzone TE Data --
 SELECT *
 FROM rz_te2018;
 
@@ -278,7 +342,92 @@ SET rz_TD_total = rz_TD_rush + rz_TD_rec;
 UPDATE rz_te_all
 SET rz_YDS_total = rz_YDS_rush + rz_YDS_rec;
 
-# ADP Data
+-- Redzone QB Data --
+SELECT *
+FROM rz_qb2018;
+
+ALTER TABLE rz_qb2018 ADD COLUMN year INT AFTER Player;
+ALTER TABLE rz_qb2019 ADD COLUMN year INT AFTER Player;
+ALTER TABLE rz_qb2020 ADD COLUMN year INT AFTER Player;
+ALTER TABLE rz_qb2021 ADD COLUMN year INT AFTER Player;
+ALTER TABLE rz_qb2022 ADD COLUMN year INT AFTER Player;
+ALTER TABLE rz_qb2023 ADD COLUMN year INT AFTER Player;
+
+UPDATE rz_qb2018 SET year = 2018;
+UPDATE rz_qb2019 SET year = 2019;
+UPDATE rz_qb2020 SET year = 2020;
+UPDATE rz_qb2021 SET year = 2021;
+UPDATE rz_qb2022 SET year = 2022;
+UPDATE rz_qb2023 SET year = 2023;
+
+CREATE TABLE rz_qb_all
+LIKE rz_qb2018;
+
+INSERT INTO rz_qb_all SELECT * FROM rz_qb2018;
+INSERT INTO rz_qb_all SELECT * FROM rz_qb2019;
+INSERT INTO rz_qb_all SELECT * FROM rz_qb2020;
+INSERT INTO rz_qb_all SELECT * FROM rz_qb2021;
+INSERT INTO rz_qb_all SELECT * FROM rz_qb2022;
+INSERT INTO rz_qb_all SELECT * FROM rz_qb2023;
+
+SELECT *
+FROM rz_qb_all;
+
+UPDATE rz_qb_all
+SET Player = TRIM(SUBSTRING_INDEX(Player, '(', 1));
+
+UPDATE rz_qb_all
+SET Player = REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Player, '*', ''), '+', ''), ' Sr.', ''), ' Jr.', ''), ' II', ''), ' III', ''), '.', '');
+
+SELECT CONCAT(' CHANGE COLUMN `', COLUMN_NAME, '` `rz_', COLUMN_NAME, '` ', COLUMN_TYPE, ';')
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'rz_qb_all';
+
+ALTER TABLE rz_qb_all
+CHANGE COLUMN `ATT` `rz_ATT_pass` int,
+CHANGE COLUMN `ATT_1` `rz_ATT_rush` int,
+CHANGE COLUMN `COMP` `rz_COMP` int,
+CHANGE COLUMN `FL` `rz_FL` int,
+CHANGE COLUMN `FPTS` `rz_FPTS` double,
+CHANGE COLUMN `FPTS/G` `rz_FPTS/G` double,
+CHANGE COLUMN `G` `rz_G` int,
+CHANGE COLUMN `INT` `rz_INT` int,
+CHANGE COLUMN `PCT` `rz_PCT_pass` varchar(50),
+CHANGE COLUMN `PCT_1` `rz_PCT_rush` varchar(50),
+CHANGE COLUMN `Rank` `rz_Rank` int,
+CHANGE COLUMN `ROST %` `rz_ROST %` varchar(50),
+CHANGE COLUMN `SACKS` `rz_SACKS` int,
+CHANGE COLUMN `TD` `rz_TD_pass` int,
+CHANGE COLUMN `TD_1` `rz_TD_rush` int,
+CHANGE COLUMN `Y/A` `rz_Y/A` double,
+CHANGE COLUMN `YDS` `rz_YDS_pass` int,
+CHANGE COLUMN `YDS_1` `rz_YDS_rush` int;
+
+ALTER TABLE rz_qb_all
+ADD COLUMN rz_TD_total INT,
+ADD COLUMN rz_YDS_total INT,
+ADD COLUMN rz_ATT_total INT;
+
+ALTER TABLE rz_qb_all
+DROP COLUMN rz_Rank;
+
+SELECT *
+FROM rz_qb_all
+WHERE Player IS NULL;
+
+DELETE FROM rz_qb_all
+WHERE Player IS NULL;
+
+UPDATE rz_qb_all
+SET rz_TD_total = rz_TD_rush + rz_TD_pass;
+
+UPDATE rz_qb_all
+SET rz_YDS_total = rz_YDS_rush + rz_YDS_pass;
+
+UPDATE rz_qb_all
+SET rz_ATT_total = rz_ATT_rush + rz_ATT_pass;
+
+-- ADP Data --
 SELECT *
 FROM adp2019;
 
@@ -353,7 +502,7 @@ END;
 UPDATE adp_all
 SET Player = REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Player, '*', ''), '+', ''), ' Sr.', ''), ' Jr.', ''), ' II', ''), ' III', ''), '.', '');
 
-# Fantasy Points Data
+-- Fantasy Points Data --
 SELECT *
 FROM fantasy2018;
 

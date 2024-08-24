@@ -128,6 +128,10 @@ SELECT *
 FROM rb_adp
 ORDER BY breakout_score DESC;
 
+SELECT *
+FROM rb_adp
+WHERE Player LIKE '%Ach%';
+
 CREATE TABLE rb_breakouts 
 LIKE rb_adp;
 

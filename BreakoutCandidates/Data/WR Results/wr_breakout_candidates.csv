@@ -1,9 +1,9 @@
-Player,year,rec_YAC/R,rec_Rec/Br,rec_Drop%,rec_Int
-Jayden Reed,2023,5.0,21.3,3,1.0
-Quentin Johnston,2023,4.0,19.0,4,1.0
-Nelson Agholor,2023,4.0,17.5,4,1.0
-Kalif Raymond,2023,6.0,35.0,4,0.0
-Greg Dortch,2023,6.0,24.0,0,0.0
-Marvin Mims,2023,7.0,22.0,3,1.0
-Jake Bobo,2023,4.0,19.0,0,1.0
-Mike Williams,2023,5.0,19.0,0,0.0
+Player,year,rec_Rec/Br,rec_YAC/R,rec_Drop%,rec_Int
+Jayden Reed,2023,21.3,5.0,3,1.0
+Quentin Johnston,2023,19.0,4.0,4,1.0
+Nelson Agholor,2023,17.5,4.0,4,1.0
+Kalif Raymond,2023,35.0,6.0,4,0.0
+Greg Dortch,2023,24.0,6.0,0,0.0
+Marvin Mims,2023,22.0,7.0,3,1.0
+Jake Bobo,2023,19.0,4.0,0,1.0
+Mike Williams,2023,19.0,5.0,0,0.0
