@@ -1,8 +1,2 @@
 # Fantasy-Football-Prediction
-Utilizes NFL team and player stats to create a model that predicts who the top PPR players will be. Data was cleaned and joined in SQL, and model was built in python.
-
-Sources from Kaggle:
-
-NFL Stats 2012-2023: https://www.kaggle.com/datasets/philiphyde1/nfl-stats-1999-2022/data?select=offense_yearly_data.csv
-
-NFL Team Data 2003-2023: https://www.kaggle.com/datasets/nickcantalupa/nfl-team-data-2003-2023
+This project predicts the top PPR (Points Per Reception) fantasy football players using NFL team and player stats from 2012 to 2023. The data, sourced from Kaggle's [NFL Player Stats](https://www.kaggle.com/datasets/philiphyde1/nfl-stats-1999-2022/data?select=offense_yearly_data.csv) and [NFL Team Data](https://www.kaggle.com/datasets/nickcantalupa/nfl-team-data-2003-2023), was cleaned and joined in SQL. [FantasyPro's Consensus Rankings](https://www.fantasypros.com/nfl/adp/ppr-overall) were also integrated to enhance the accuracy of predictions. The model was built and tested in Python, providing a data-driven approach to identifying top fantasy football performers.
